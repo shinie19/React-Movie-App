@@ -1,32 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./button.scss";
 
 Button.propTypes = {
   onClick: PropTypes.func,
 };
 
 function Button(props) {
-  const { className, onClick, childrend } = props;
+  const { className, onClick, children } = props;
 
   return (
-    <button
-      className={`btn ${className}`}
-      onClick={onClick ? () => onClick : null}
-    >
-      {childrend}
+    <button className={`btn ${className}`} onClick={onClick ? onClick : null}>
+      {children}
     </button>
   );
 }
 
 function OutlineButton(props) {
-  const { className, onClick, childrend } = props;
+  const { className, onClick, children } = props;
 
   return (
     <button
-      className={`btn-outline ${className}`}
-      onClick={onClick ? () => onClick : null}
+      className={`btn btn-outline ${className}`}
+      onClick={onClick ? onClick : null}
     >
-      {childrend}
+      {children}
     </button>
   );
 }
