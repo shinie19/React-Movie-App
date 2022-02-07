@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import "./movie-list.scss";
-
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
-import Button from "../button/Button";
-
 import tmdbApi from "../../api/tmdbApi";
-import apiConfig from "../../api/apiConfig";
+import MovieCard from "../movie-card/MovieCard";
+import "./movie-list.scss";
 
 MovieList.propTypes = {
   category: PropTypes.string.isRequired,
@@ -47,7 +43,7 @@ function MovieList(props) {
       <Swiper grabCursor={true} spaceBetween={10} slidesPerView={"auto"}>
         {items.map((item, i) => (
           <SwiperSlide key={i}>
-            <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+            <MovieCard item={item} category={category} />
           </SwiperSlide>
         ))}
       </Swiper>
