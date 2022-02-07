@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button, { OutlineButton } from "../button/Button";
-import Modal, { ModalContent } from "../modal/Modal";
+import Modal from "../modal/Modal";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
@@ -68,6 +68,7 @@ function HeroSlideItem(props) {
 
   const setModalActive = async () => {
     const modal = document.querySelector(`#modal_${item.id}`);
+    modal.classList.add("active");
 
     const videos = await tmdbApi.getVideos(category.movie, item.id);
 
@@ -79,8 +80,6 @@ function HeroSlideItem(props) {
     } else {
       modal.querySelector(".modal__content").innerHTML = "No trailer";
     }
-
-    modal.classList.toggle("active");
   };
 
   return (
@@ -117,15 +116,13 @@ function TrailerModal(props) {
   const onClose = () => iframeRef.current.setAttribute("src", "");
 
   return (
-    <Modal active={false} id={`modal_${item.id}`}>
-      <ModalContent onClose={onClose}>
-        <iframe
-          ref={iframeRef}
-          width="100%"
-          height="500px"
-          title="trailer"
-        ></iframe>
-      </ModalContent>
+    <Modal id={item.id.toString()} active={false} onClose={onClose}>
+      <iframe
+        ref={iframeRef}
+        width="100%"
+        height="500px"
+        title="trailer"
+      ></iframe>
     </Modal>
   );
 }
