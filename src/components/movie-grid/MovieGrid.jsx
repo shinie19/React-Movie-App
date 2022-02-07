@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import tmdbApi, { movieType, tvType } from "../../api/tmdbApi";
 import { OutlineButton } from "../button/Button";
 import MovieCard from "../movie-card/MovieCard";
+import MovieSearch from "../movie-search/MovieSearch";
 import "./movie-grid.scss";
 
 function MovieGrid(props) {
@@ -17,6 +18,8 @@ function MovieGrid(props) {
   useEffect(() => {
     const getList = async () => {
       let response = null;
+
+      // console.log(keyword);
 
       if (keyword === undefined) {
         const params = {};
@@ -53,7 +56,7 @@ function MovieGrid(props) {
         page: page + 1,
       };
       switch (category) {
-        case "movie":
+        case "movies":
           response = await tmdbApi.getMovieList(movieType.upcoming, {
             params,
           });
@@ -77,6 +80,9 @@ function MovieGrid(props) {
 
   return (
     <>
+      <div className="section mb-3">
+        <MovieSearch category={category} keyword={keyword} />
+      </div>
       <div className="movie-grid">
         {items.map((item, i) => (
           <MovieCard key={i} category={category} item={item} />
